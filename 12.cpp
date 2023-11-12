@@ -10,7 +10,7 @@ int main(){
     cin >> n;
     if(n < 2)
         snt = 0;
-    for(int i = 2; i <= sqrt(n); i++)
+    for(i; i <= sqrt(n); i++)
         if(n % i == 0)
             snt = 0;
     if(snt)
