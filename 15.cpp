@@ -1,20 +1,19 @@
 #include <iostream>
-#include <algorithm>
+#include <stack>
 using namespace std;
 
 int main(){
     long long n; cin >> n;
+    stack <int> s;
     if(n <= 0) 
         return 0;
-    string s;
-    while(n > 0){
-        if(n % 2 == 0)
-            s.append("0");
-        else
-            s.append("1");
+    while(n != 0){
+        s.push(n % 2);
         n /= 2;
     }
-    reverse(begin(s), end(s));
-    cout << s;
+    while(!s.empty()){
+        cout << s.top();
+        s.pop();
+    }
     return 0;
 }
