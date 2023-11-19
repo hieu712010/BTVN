@@ -1,6 +1,55 @@
 #include <iostream>
 #include <ctime>
-#include <myLib.h>
+#include <conio.h>
+#include <windows.h>
+
+#define KEY_NONE
+
+HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
+COORD CursorPostion;
+
+int whereX(){
+    CONSOLE_SCREEN_BUFFER_INFO csbi;
+    if(GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi))
+        return csbi.dwCursorPosition.X;
+    return -1;
+}
+int whereY(){
+    CONSOLE_SCREEN_BUFFER_INFO csbi;
+    if(GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi))
+        return csbi.dwCursorPosition.Y;
+    return -1;
+}
+void gotoxy(int x, int y){
+    CursorPostion.X = x;
+    CursorPostion.Y = y;
+    SetConsoleCursorPosition(console, CursorPostion);
+}
+//Dat mau cho chu
+void SetColor(WORD color){
+    SetConsoleTextAttribute(console, color);
+}
+//An con tro chuot
+void SetCursor(bool visible, DWORD size){
+    if(size == 0)
+        size = 20;
+
+    CONSOLE_CURSOR_INFO lpCursor;
+    lpCursor.bVisible = visible;
+    lpCursor.dwSize = size;
+    SetConsoleCursorInfo(console, &lpCursor);
+}   
+//Tra ve ma phim nguoi dung bam
+int inputKey(){
+    if(_kbhit()){
+        int key = _getch();
+        if(key == 244){
+            key = _getch();
+            return key + 1000;
+        }
+        return key;
+    }
+}
 
 using namespace std;
 
